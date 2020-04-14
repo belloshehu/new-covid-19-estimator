@@ -76,6 +76,7 @@ def challenge3_soluton(data):
     severe_Impact_dollars_in_flight = trunc(output_data_after_challenge2["severeImpact"]["infectionsByRequestedTime"]*data["region"]["avgDailyIncomeInUSD"]*data["region"]["avgDailyIncomePopulation"]/get_duration(data))
     output_data_after_challenge2["impact"]["dollarsInFlight"] = impact_dollars_in_flight
     output_data_after_challenge2["severeImpact"]["dollarsInFlight"] = severe_Impact_dollars_in_flight
+    return output_data
 
 def estimator(data):
 
