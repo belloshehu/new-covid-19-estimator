@@ -7,11 +7,7 @@ import logging
 import time
 request_log = {}
 app = Flask(__name__)
-output_data = {
-    "data":data,
-    "impact":{},
-    "severeImpact":{}
-}
+
 
 def log_request_response(request_method,url,status,duration):
   logging.basicConfig(filename='serverlog.log', level=logging.INFO)
@@ -29,6 +25,12 @@ def get_duration(data):
   
   #challenge 1 function 
 def challenge1_soluton(data):
+    output_data = {
+    "data":{},
+    "impact":{},
+    "severeImpact":{}
+    }
+    output_data["data"] = data
     #estimating the currently Infected people for both impact and severeImpact 
     impact_currently_infected = data["reportedCases"]*10
     severe_Impact_currently_infected = data["reportedCases"]*50
@@ -81,15 +83,15 @@ def challenge3_soluton(data):
 def estimator(data):
 
     #challenge 1
-    challenge1_soluton(data)
+    result1 = challenge1_soluton(data)
     
     #challenge 2
-    challenge2_soluton(data)
+    result2 = challenge2_soluton(result1)
 
     #challenge 3
-    challenge3_soluton(data)
+    result3 = challenge3_soluton(result2)
 
-    return output_data
+    return result3
 
 @app.route("/api/v1/on-covid-19", methods=["POST"])
 def default_api():
