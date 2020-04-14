@@ -90,16 +90,16 @@ def estimator(data):
 
     return output_data
 
-@app.route("/api/v1/on-covid-19", methods=["GET"])
+@app.route("/api/v1/on-covid-19", methods=["POST"])
 def default_api():
     return jsonify(estimator(data))
 
-@app.route("/api/v1/on-covid-19/json", methods=["GET"])
+@app.route("/api/v1/on-covid-19/json", methods=["POST"])
 def json_api():
     log_request_response(request.method,"/api/v1/on-covid-19/json",200, 20)
     return jsonify(estimator(data))
 
-@app.route("/api/v1/on-covid-19/xml", methods=["GET"])
+@app.route("/api/v1/on-covid-19/xml", methods=["POST"])
 def xml_api():
     print(request.path)
     print(request.url)
