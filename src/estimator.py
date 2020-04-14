@@ -7,15 +7,7 @@ import logging
 import time
 request_log = {}
 app = Flask(__name__)
-output_data = {
-    "data":data,
-    "impact":{},
-    "severeImpact":{}
-}
 
-def log_request_response(request_method,url,status,duration):
-  logging.basicConfig(filename='serverlog.log', level=logging.INFO)
-  logging.info("{}\t\t{} \t\t {}\t\t{}".format(request_method,url,status,duration))
 #returns duration for estimation
 def get_duration(data):
 
@@ -29,6 +21,12 @@ def get_duration(data):
   
   #challenge 1 function 
 def challenge1_soluton(data):
+    output_data = {
+    "data":{},
+    "impact":{},
+    "severeImpact":{}
+    }
+    output_data["data"] = data
     #estimating the currently Infected people for both impact and severeImpact 
     impact_currently_infected = data["reportedCases"]*10
     severe_Impact_currently_infected = data["reportedCases"]*50
@@ -76,6 +74,8 @@ def challenge3_soluton(data):
     severe_Impact_dollars_in_flight = trunc(output_data_after_challenge2["severeImpact"]["infectionsByRequestedTime"]*data["region"]["avgDailyIncomeInUSD"]*data["region"]["avgDailyIncomePopulation"]/get_duration(data))
     output_data_after_challenge2["impact"]["dollarsInFlight"] = impact_dollars_in_flight
     output_data_after_challenge2["severeImpact"]["dollarsInFlight"] = severe_Impact_dollars_in_flight
+    output_data =output_data_after_challenge2
+    return output_data
 
 def estimator(data):
 
@@ -86,8 +86,8 @@ def estimator(data):
     challenge2_soluton(data)
 
     #challenge 3
-    challenge3_soluton(data)
-
+    result3 = challenge3_soluton(data)
+    output_data = result3
     return output_data
 
 @app.route("/api/v1/on-covid-19", methods=["POST"])
