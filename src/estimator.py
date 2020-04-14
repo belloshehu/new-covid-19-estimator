@@ -78,20 +78,21 @@ def challenge3_soluton(data):
     severe_Impact_dollars_in_flight = trunc(output_data_after_challenge2["severeImpact"]["infectionsByRequestedTime"]*data["region"]["avgDailyIncomeInUSD"]*data["region"]["avgDailyIncomePopulation"]/get_duration(data))
     output_data_after_challenge2["impact"]["dollarsInFlight"] = impact_dollars_in_flight
     output_data_after_challenge2["severeImpact"]["dollarsInFlight"] = severe_Impact_dollars_in_flight
+    output_data =output_data_after_challenge2
     return output_data
 
 def estimator(data):
 
     #challenge 1
-    result1 = challenge1_soluton(data)
+    challenge1_soluton(data)
     
     #challenge 2
-    result2 = challenge2_soluton(result1)
+    challenge2_soluton(data)
 
     #challenge 3
-    result3 = challenge3_soluton(result2)
-
-    return result3
+    result3 = challenge3_soluton(data)
+    output_data = result3
+    return output_data
 
 @app.route("/api/v1/on-covid-19", methods=["POST"])
 def default_api():
@@ -132,6 +133,7 @@ def stop_timing(response):
   with open('log.txt', 'a') as file_ref:
     print("{}\t\t{}\t\t{}\t\t{}ms".format(method_type,url,status,duration), file=file_ref)
   return response
+
 
 if __name__=="__main__":
     app.run(debug=True)
